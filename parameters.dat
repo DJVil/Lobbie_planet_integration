@@ -1,0 +1,10 @@
+8                ! number of nodes of integrator (default = 8). Order of integrator = 2*(number of nodes - 2)
+25               ! number of max itirations in the integrator  (default 25)
+1e6             ! final time in years
+250.             ! step in time for output in years
+1e-11			 ! accuracy on each step (1e-8, 1e-10...)
+elements		 ! 'cartesians' or 'elements'. Either you provide for particles cartesian ecliptical state vectors in (au, au/day) or orbital elements (a,e,i,Om,g,M): semi-major axis (AU), eccentricity, inclination (deg), longitude of node (deg), longitude of perihelion (deg), Mean anomaly (deg); for planets it is always cartesian state vector in (au, au/day)
+yes elem output	 ! output of orbital elements as well. 'no' means not. anything else is 'yes'
+no  short output ! output of orbital elements only when a particle is an NEO. 'yes' means yes. Everything else is no
+-170				! maximal time in minutes to run the code (if negative - there is no limit)
+100				! checkpoint output.  once in how many times should we print checkpoints
