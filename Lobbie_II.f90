@@ -409,13 +409,15 @@ subroutine lobbie2_2(x32,y32,ts,tf,step,etol_ini,nxy,ns,ni,nst,ncf,fun,indices,e
       
       if (.not. encounter_mode .and. inside) then
               etol = 1.d-14
-              r = min(r, 2._dp*pi/365.25_dp / 100._dp / h)
+              !r = min(r, 2._dp*pi/365.25_dp / 100._dp / h)
+              r = r / 3.0_dp
               t_inside = t
               x32 = x32_previous; y32 = y32_previous; t = t_previous; 
               x = x32; y = y32
               a = a_previous; ax = ax_previous
               encounter_mode = .true.
               nst = nst - 1
+              ls = .false. ! we need to insure this is not the last step (so r = r / 3 is important)
               go to 5
       endif
       
@@ -423,7 +425,7 @@ subroutine lobbie2_2(x32,y32,ts,tf,step,etol_ini,nxy,ns,ni,nst,ncf,fun,indices,e
       if (encounter_mode) then
           if (inside) was_inside = .true.
           etol = 1.d-14
-
+      
           ! if we were inside but not now we restore the step
           ! or the inside time was 50 days ago and we are not inside
           if (was_inside .and. .not. inside .or. (abs(t_inside-t) > 50._dp/365.25*pi*2 .and. .not. inside) ) then
@@ -520,7 +522,7 @@ subroutine lobbie2_2(x32,y32,ts,tf,step,etol_ini,nxy,ns,ni,nst,ncf,fun,indices,e
 5      if(ls) exit ! Exit
 
       h=r*h; 
-      if(h < 1.d-8) h = 1.d-8
+      !if(h < 1.d-8) h = 1.d-8
       h2=h**2; us(:npc)=0.0_dp
 
       ! Last Step

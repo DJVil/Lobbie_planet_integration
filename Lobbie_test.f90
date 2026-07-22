@@ -110,10 +110,10 @@
     ! read coordinates and velocities of test particles
     !--------------------------------------------------------------------------------------------------------------------
     
-    write(*,*) 'Input the filename of asteroid orbits in [filename].txt (without .txt):'
-    read(*,*) file_char !current_file
+    !write(*,*) 'Input the filename of asteroid orbits in [filename].txt (without .txt):'
+    !read(*,*) file_char !current_file
     
-    !call get_command_argument(1, file_char)
+    call get_command_argument(1, file_char)
     
     open(14,file = 'asteroids/' // trim(file_char) // '.txt', status='old', action='read')
     
@@ -290,7 +290,7 @@
                     ! if q < 1.3
                     if( el(10)*(1.d0 - el(3)) <= 1.3d0) then
                     ! write the results                             N of particle  time           coordinates     velocities              err         a       e       i       Om      g   M 
-                    write(17,'(i0,",",7(g0.16,","), *(g0.8,:,","))') j,t_collision(i)/(2.d0*pi), pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss, err_ar(i), el(10), el(3), [el(7), el(6), el(5), el(8)]*rad
+                    write(17,'(i0,",",7(g0.20,","), *(g0.8,:,","))') j,t_collision(i)/(2.d0*pi), pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss, err_ar(i), el(10), el(3), [el(7), el(6), el(5), el(8)]*rad
                     endif
                     
                 else
@@ -300,7 +300,7 @@
                         call PosVelElements_new(0.d0, [pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss], 0.d0, 0.d0, el(1), el(2), el(3), el(4), el(5), el(6), el(7), el(8), el(9), el(10), el(11)) 
                         
                         ! write the results                             N of particle  time           coordinates     velocities              err         a       e       i       Om      g   M 
-                        write(17,'(i0,",",7(g0.16,","), *(g0.8,:,","))') j,t_collision(i)/(2.d0*pi), pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss, err_ar(i), el(10), el(3), [el(7), el(6), el(5), el(8)]*rad
+                        write(17,'(i0,",",7(g0.20,","), *(g0.8,:,","))') j,t_collision(i)/(2.d0*pi), pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss, err_ar(i), el(10), el(3), [el(7), el(6), el(5), el(8)]*rad
                     endif                    
                 endif                
                 
@@ -308,7 +308,7 @@
             else
             
                 if( elem_output(:2) == 'no') then
-                    write(17,'(i0,",",*(g0.16,:,","))') j,t_collision(i)/(2.d0*pi), pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss, err_ar(i)
+                    write(17,'(i0,",",*(g0.20,:,","))') j,t_collision(i)/(2.d0*pi), pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss, err_ar(i)
                 else
                 
                     ! get orbital elements
@@ -316,7 +316,7 @@
                     call PosVelElements_new(0.d0, [pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss], 0.d0, 0.d0, el(1), el(2), el(3), el(4), el(5), el(6), el(7), el(8), el(9), el(10), el(11)) 
                     
                     ! write the results                  N of particle  time        coordinates     velocities              err         a       e       i       Om      g   M 
-                    write(17,'(i0,","g0.16,",",6(g0.5,","),*(g0.16,:,","))') j,t_collision(i)/(2.d0*pi), pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss, err_ar(i), el(10), el(3), [el(7), el(6), el(5), el(8)]*rad
+                    write(17,'(i0,","g0.16,",",6(g0.20,","),*(g0.16,:,","))') j,t_collision(i)/(2.d0*pi), pos(i*3-2:i*3), vel(i*3-2:i*3)*k_gauss, err_ar(i), el(10), el(3), [el(7), el(6), el(5), el(8)]*rad
                 endif
             endif
 
@@ -326,7 +326,7 @@
         if(nxy == 3*N_planets) then
             ! write the checkpoint of data to a file
             do i = 1, Num_particles
-                write(167,'(i0,",", g0.16,",",*(g0.8,:,","))') indices(i),t_collision(i), pos32(i*3-2:i*3), vel32(i*3-2:i*3), err_ar(i), step
+                write(167,'(i0,",", g0.16,",",*(g0.38,:,","))') indices(i),t_collision(i), pos32(i*3-2:i*3), vel32(i*3-2:i*3), err_ar(i), step
             enddo
             write(*,*) 'current time/final time', real(step_t*(k+1)/(2.d0*pi)), real(tf/(2.d0*pi)), nxy/3
             
